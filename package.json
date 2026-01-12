@@ -1,0 +1,25 @@
+{
+  "name": "blueprintx",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "install:all": "cd client && npm install && cd ../server && npm install",
+    "start": "npm run dev:client",
+    "start:client": "cd client && npm start",
+    "start:server": "cd server && npm start",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "dev:all": "npm run dev:client & npm run dev:server",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "build:all": "npm run build:client && npm run build:server",
+    "lint:client": "cd client && npm run lint",
+    "lint:server": "cd server && npm run lint",
+    "lint:all": "npm run lint:client && npm run lint:server",
+    "clean": "cd client && npm run clean && cd ../server && npm run clean",
+    "test": "cd client && npm test && cd ../server && npm test"
+  },
+  "dependencies": {
+    "@react-oauth/google": "^0.13.4"
+  }
+}

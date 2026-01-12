@@ -18,18 +18,22 @@ UPLOAD_DIR = Path("data/uploads")
 BLUEPRINT_DIR = Path("data/blueprints")
 BLUEPRINT_DIR.mkdir(parents=True, exist_ok=True)
 
-@router.get("/generate-blueprint/{document_id}")
+@router.post("/generate-blueprint/{document_id}")
 async def generate_blueprint(document_id: UUID):
     """
     Invokes the orchestrator to generate an AI blueprint from an uploaded document
     and returns the final PDF file directly.
-    
-    Args:
-        document_id: The UUID of the uploaded document.
-    
-    Returns:
-        A FileResponse containing the generated blueprint PDF.
     """
+    
+    # Check if blueprint already exists
+    blueprint_path = BLUEPRINT_DIR / f"{document_id}.pdf"
+    if blueprint_path.exists():
+        logger.info(f"Returning existing blueprint for {document_id}")
+        return FileResponse(
+            path=blueprint_path,
+            media_type="application/pdf",
+            filename=f"{document_id}.pdf"
+        )
     
     # 1. Find the uploaded file
     file_path = None
